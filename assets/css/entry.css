@@ -1,0 +1,108 @@
+﻿:root {
+      --ink: #111111;
+      --paper: #f8f5ef;
+      --white: #ffffff;
+      --yellow: #ffd95a;
+      --blue: #176bff;
+      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--white);
+      background: #181818;
+      word-break: keep-all;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url("https://cdn.pixabay.com/photo/2014/06/21/19/56/conference-374078_1280.jpg");
+      background-position: center;
+      background-size: cover;
+      transform: scale(1.02);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.62);
+    }
+
+    main {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+    }
+
+    .entry {
+      width: min(100%, 620px);
+      padding: clamp(36px, 7vw, 64px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 10px;
+      background: rgba(17, 17, 17, 0.62);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      margin: 0 0 22px;
+      color: var(--yellow);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0 0 30px;
+      font-size: clamp(42px, 8vw, 74px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 950;
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 8px;
+      color: var(--ink);
+      background: var(--white);
+      font-size: 17px;
+      font-weight: 900;
+      text-decoration: none;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+      background: var(--yellow);
+    }
+
+    @media (max-width: 520px) {
+      main {
+        padding: 18px;
+      }
+
+      .entry {
+        padding: 34px 22px;
+      }
+    }
