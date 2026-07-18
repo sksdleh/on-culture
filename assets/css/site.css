@@ -462,22 +462,21 @@
 
     .instructor-shell {
       display: grid;
-      grid-template-columns: minmax(240px, 0.58fr) minmax(0, 1fr);
-      gap: 36px;
+      gap: 28px;
       align-items: start;
     }
 
     .instructor-list {
       display: grid;
-      grid-template-columns: repeat(5, minmax(94px, 1fr));
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
       gap: 14px;
     }
 
     .instructor-tab {
       display: grid;
       justify-items: center;
-      gap: 8px;
-      min-height: 176px;
+      gap: 10px;
+      min-height: 146px;
       padding: 14px 10px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
@@ -514,15 +513,8 @@
       font-size: 16px;
       line-height: 1.2;
     }
-
-    .instructor-tab span:last-child {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
     .instructor-detail {
-      min-height: 430px;
+      min-height: 390px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--white);
@@ -842,11 +834,11 @@
       }
 
       .instructor-list {
-        grid-template-columns: repeat(5, minmax(82px, 1fr));
+        grid-template-columns: repeat(5, minmax(100px, 1fr));
       }
 
       .instructor-tab {
-        min-height: 158px;
+        min-height: 136px;
       }
 
       .program-carousel {
