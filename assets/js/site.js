@@ -6,6 +6,11 @@ const cards = [...document.querySelectorAll("[data-category]")];
 const snapSections = [...document.querySelectorAll("main > section")];
 const heroSlides = [...document.querySelectorAll(".hero-slide")];
 const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
+const programGrid = document.querySelector("[data-program-grid]");
+const programControls = document.querySelector("[data-program-controls]");
+const programPrev = document.querySelector("[data-program-prev]");
+const programNext = document.querySelector("[data-program-next]");
+const programDots = document.querySelector("[data-program-dots]");
 const HERO_DELAY = 5200;
 
 let isSectionScrolling = false;
@@ -13,6 +18,8 @@ let touchStartY = 0;
 let touchStartX = 0;
 let currentHeroIndex = 0;
 let heroTimer;
+let currentProgramFilter = "all";
+let currentProgramPage = 0;
 
 function syncHeader() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -77,6 +84,70 @@ function startHeroSlider() {
   }, HERO_DELAY);
 }
 
+function getProgramPageSize() {
+  if (window.matchMedia("(max-width: 720px)").matches) return 1;
+  if (window.matchMedia("(max-width: 1020px)").matches) return 2;
+  return 3;
+}
+
+function getFilteredProgramCards() {
+  return cards.filter((card) => {
+    const categories = card.dataset.category.split(" ");
+    return currentProgramFilter === "all" || categories.includes(currentProgramFilter);
+  });
+}
+
+function renderProgramDots(totalPages) {
+  if (!programDots) return;
+
+  programDots.replaceChildren();
+
+  for (let index = 0; index < totalPages; index += 1) {
+    const dot = document.createElement("button");
+    const isActive = index === currentProgramPage;
+
+    dot.type = "button";
+    dot.classList.toggle("is-active", isActive);
+    dot.setAttribute("aria-label", `${index + 1}번째 프로그램 묶음 보기`);
+    dot.setAttribute("aria-current", isActive ? "true" : "false");
+    dot.addEventListener("click", () => {
+      currentProgramPage = index;
+      syncProgramCarousel(true);
+    });
+
+    programDots.append(dot);
+  }
+}
+
+function syncProgramCarousel(animate = false) {
+  if (!programGrid || !cards.length) return;
+
+  const pageSize = getProgramPageSize();
+  const filteredCards = getFilteredProgramCards();
+  const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+  const startIndex = Math.min(currentProgramPage, totalPages - 1) * pageSize;
+  const visibleCards = filteredCards.slice(startIndex, startIndex + pageSize);
+
+  currentProgramPage = Math.min(currentProgramPage, totalPages - 1);
+
+  cards.forEach((card) => {
+    card.hidden = !visibleCards.includes(card);
+  });
+
+  if (programPrev) programPrev.disabled = currentProgramPage === 0;
+  if (programNext) programNext.disabled = currentProgramPage >= totalPages - 1;
+  if (programControls) programControls.hidden = filteredCards.length <= pageSize;
+
+  renderProgramDots(totalPages);
+
+  if (animate) {
+    programGrid.classList.remove("is-sliding");
+    window.requestAnimationFrame(() => {
+      programGrid.classList.add("is-sliding");
+    });
+  }
+}
+
 function closeMenu() {
   document.body.classList.remove("is-menu-open");
   header.classList.remove("is-open");
@@ -89,6 +160,7 @@ window.addEventListener("scroll", syncHeader, { passive: true });
 syncHeader();
 showHeroSlide(0);
 startHeroSlider();
+syncProgramCarousel();
 
 heroDots.forEach((dot) => {
   dot.addEventListener("click", () => {
@@ -96,6 +168,20 @@ heroDots.forEach((dot) => {
     startHeroSlider();
   });
 });
+
+if (programPrev) {
+  programPrev.addEventListener("click", () => {
+    currentProgramPage -= 1;
+    syncProgramCarousel(true);
+  });
+}
+
+if (programNext) {
+  programNext.addEventListener("click", () => {
+    currentProgramPage += 1;
+    syncProgramCarousel(true);
+  });
+}
 
 window.addEventListener(
   "wheel",
@@ -137,6 +223,11 @@ window.addEventListener(
   { passive: true }
 );
 
+window.addEventListener("resize", () => {
+  currentProgramPage = 0;
+  syncProgramCarousel();
+});
+
 toggle.addEventListener("click", () => {
   const isOpen = mobilePanel.classList.toggle("is-open");
   document.body.classList.toggle("is-menu-open", isOpen);
@@ -151,15 +242,13 @@ mobilePanel.addEventListener("click", (event) => {
 
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
-    const filter = tab.dataset.filter;
+    currentProgramFilter = tab.dataset.filter;
+    currentProgramPage = 0;
 
     tabs.forEach((item) => {
       item.setAttribute("aria-selected", String(item === tab));
     });
 
-    cards.forEach((card) => {
-      const categories = card.dataset.category.split(" ");
-      card.hidden = filter !== "all" && !categories.includes(filter);
-    });
+    syncProgramCarousel(true);
   });
 });
