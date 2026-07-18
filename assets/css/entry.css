@@ -24,7 +24,7 @@
       position: fixed;
       inset: 0;
       z-index: -2;
-      background-image: url("https://cdn.pixabay.com/photo/2014/06/21/19/56/conference-374078_1280.jpg");
+      background-image: url("/assets/img/visual-01.jpg");
       background-position: center;
       background-size: cover;
       transform: scale(1.02);
@@ -46,7 +46,7 @@
     }
 
     .entry {
-      width: min(100%, 620px);
+      width: min(100%, 760px);
       padding: clamp(36px, 7vw, 64px);
       border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 10px;
@@ -65,16 +65,26 @@
     }
 
     h1 {
-      margin: 0 0 30px;
-      font-size: clamp(42px, 8vw, 74px);
-      line-height: 1.05;
+      margin: 0 0 24px;
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.12;
       letter-spacing: 0;
       font-weight: 950;
+    }
+
+    .entry-copy {
+      max-width: 610px;
+      margin: 0 auto 12px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(17px, 2.4vw, 22px);
+      line-height: 1.65;
+      font-weight: 750;
     }
 
     .actions {
       display: grid;
       gap: 12px;
+      margin-top: 32px;
     }
 
     a {
