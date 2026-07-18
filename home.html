@@ -108,7 +108,8 @@
           <button class="tab" type="button" role="tab" aria-selected="false" data-filter="oneday">원데이</button>
         </div>
 
-        <div class="program-grid">
+        <div class="program-carousel" data-program-carousel>
+        <div class="program-grid" data-program-grid>
           <article class="program-card" data-category="humanities">
             <div class="program-media">
               <img src="https://cdn.pixabay.com/photo/2015/10/09/20/37/meeting-979899_1280.jpg" alt="세미나에 참여한 사람들이 강의를 듣는 모습">
@@ -180,6 +181,16 @@
               <div class="program-tags"><span>타로</span><span>명리</span><span>도형심리</span></div>
             </div>
           </article>
+        </div>
+        </div>
+        <div class="program-controls" data-program-controls aria-label="프로그램 슬라이드 이동">
+          <button class="program-arrow" type="button" aria-label="이전 프로그램 보기" data-program-prev>
+            <span aria-hidden="true">‹</span>
+          </button>
+          <div class="program-dots" data-program-dots aria-label="프로그램 슬라이드 목록"></div>
+          <button class="program-arrow" type="button" aria-label="다음 프로그램 보기" data-program-next>
+            <span aria-hidden="true">›</span>
+          </button>
         </div>
       </div>
     </section>
