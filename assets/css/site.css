@@ -485,7 +485,9 @@
     }
 
     .program-carousel {
-      overflow: hidden;
+      position: relative;
+      overflow: visible;
+      padding: 0 18px 34px;
     }
 
     .program-grid {
@@ -601,9 +603,15 @@
     .program-controls {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 24px;
+      justify-content: space-between;
+      position: absolute;
+      left: -4px;
+      right: -4px;
+      top: 50%;
+      z-index: 4;
+      margin-top: 0;
+      pointer-events: none;
+      transform: translateY(-50%);
     }
 
     .program-controls[hidden] {
@@ -613,13 +621,15 @@
     .program-arrow {
       display: inline-grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
+      width: 48px;
+      height: 48px;
       border: 1px solid var(--line);
       border-radius: 50%;
       color: var(--ink);
       background: var(--white);
       cursor: pointer;
+      box-shadow: 0 12px 28px rgba(17, 17, 17, 0.16);
+      pointer-events: auto;
       transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
     }
 
@@ -644,9 +654,14 @@
     }
 
     .program-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
       display: flex;
       align-items: center;
       gap: 8px;
+      pointer-events: auto;
+      transform: translateX(-50%);
     }
 
     .program-dots button {
