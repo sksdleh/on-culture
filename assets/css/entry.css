@@ -115,4 +115,8 @@
       .entry {
         padding: 34px 22px;
       }
+
+      .entry-copy br {
+        display: none;
+      }
     }
