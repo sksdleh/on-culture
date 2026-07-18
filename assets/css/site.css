@@ -22,6 +22,7 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
     }
 
     body {
@@ -170,13 +171,14 @@
 
     .hero {
       position: relative;
-      min-height: 88vh;
+      min-height: 100svh;
       display: grid;
       align-items: center;
       color: var(--white);
       isolation: isolate;
       overflow: hidden;
       background: #181818;
+      scroll-snap-align: start;
     }
 
     .hero-slider,
@@ -205,6 +207,10 @@
       object-fit: cover;
       object-position: center;
       transform: scale(1.03);
+    }
+
+    .hero-slide.is-brightened img {
+      filter: brightness(1.55) contrast(1.06) saturate(1.04);
     }
 
     .hero::after {
@@ -236,6 +242,100 @@
       margin: 0 auto;
       padding: calc(var(--header) + 72px) 0 84px;
       text-align: center;
+    }
+
+    .hero-pagination {
+      position: absolute;
+      left: 50%;
+      bottom: clamp(28px, 5vh, 54px);
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: min(520px, calc(100% - 40px));
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      transform: translateX(-50%);
+    }
+
+    .hero-pagination li {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      padding-top: 13px;
+      color: rgba(255, 255, 255, 0.56);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      animation: paginationActive 18s infinite;
+    }
+
+    .hero-pagination li:nth-child(2) {
+      animation-delay: 6s;
+    }
+
+    .hero-pagination li:nth-child(3) {
+      animation-delay: 12s;
+    }
+
+    .hero-pagination li::before,
+    .hero-pagination li::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      border-radius: 999px;
+    }
+
+    .hero-pagination li::before {
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .hero-pagination li::after {
+      background: var(--white);
+      transform: scaleX(0);
+      transform-origin: left center;
+      animation: paginationFill 18s infinite;
+    }
+
+    .hero-pagination li:nth-child(2)::after {
+      animation-delay: 6s;
+    }
+
+    .hero-pagination li:nth-child(3)::after {
+      animation-delay: 12s;
+    }
+
+    @keyframes paginationActive {
+      0%,
+      29%,
+      100% {
+        color: var(--white);
+      }
+
+      35%,
+      94% {
+        color: rgba(255, 255, 255, 0.56);
+      }
+    }
+
+    @keyframes paginationFill {
+      0% {
+        transform: scaleX(0);
+      }
+
+      29% {
+        transform: scaleX(1);
+      }
+
+      35%,
+      100% {
+        transform: scaleX(0);
+      }
     }
 
     .hero-line {
@@ -274,11 +374,15 @@
     }
 
     .section {
-      padding: 108px 0;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--header) + 48px) 0 72px;
+      scroll-snap-align: start;
     }
 
     .section.compact {
-      padding: 78px 0;
+      padding: calc(var(--header) + 48px) 0 72px;
     }
 
     .section.dark {
@@ -673,11 +777,16 @@
       }
 
       .hero {
-        min-height: 92vh;
+        min-height: 100svh;
       }
 
       .hero-inner {
         padding-bottom: 30px;
+      }
+
+      .hero-pagination {
+        bottom: 24px;
+        gap: 8px;
       }
 
       h1 {
