@@ -494,6 +494,10 @@
       gap: 18px;
     }
 
+    .program-grid:not(.is-ready) .program-card:nth-of-type(n+4) {
+      display: none;
+    }
+
     .program-grid.is-sliding .program-card:not([hidden]) {
       animation: programCardIn 360ms ease both;
     }
