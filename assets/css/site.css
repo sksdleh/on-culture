@@ -484,10 +484,30 @@
       background: var(--ink);
     }
 
+    .program-carousel {
+      overflow: hidden;
+    }
+
     .program-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
+    }
+
+    .program-grid.is-sliding .program-card:not([hidden]) {
+      animation: programCardIn 360ms ease both;
+    }
+
+    @keyframes programCardIn {
+      from {
+        opacity: 0;
+        transform: translateX(22px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .program-card {
@@ -572,6 +592,73 @@
       color: var(--muted);
       font-size: 12px;
       font-weight: 800;
+    }
+
+    .program-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .program-controls[hidden] {
+      display: none;
+    }
+
+    .program-arrow {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--white);
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
+    }
+
+    .program-arrow:hover {
+      transform: translateY(-2px);
+      background: var(--yellow);
+    }
+
+    .program-arrow:disabled {
+      opacity: 0.38;
+      cursor: default;
+      transform: none;
+      background: var(--white);
+    }
+
+    .program-arrow span {
+      display: block;
+      margin-top: -2px;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .program-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .program-dots button {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(17, 17, 17, 0.25);
+      cursor: pointer;
+      transition: width 180ms ease, background 180ms ease;
+    }
+
+    .program-dots button.is-active {
+      width: 28px;
+      background: var(--ink);
     }
 
     .gallery-grid {
