@@ -487,7 +487,7 @@
     .program-carousel {
       position: relative;
       overflow: visible;
-      padding: 0 18px 34px;
+      padding: 0 74px 46px;
     }
 
     .program-grid {
@@ -601,17 +601,12 @@
     }
 
     .program-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: block;
       position: absolute;
-      left: -4px;
-      right: -4px;
-      top: 50%;
+      inset: 0;
       z-index: 4;
       margin-top: 0;
       pointer-events: none;
-      transform: translateY(-50%);
     }
 
     .program-controls[hidden] {
@@ -621,8 +616,10 @@
     .program-arrow {
       display: inline-grid;
       place-items: center;
-      width: 48px;
-      height: 48px;
+      position: absolute;
+      top: calc(50% - 23px);
+      width: 66px;
+      height: 66px;
       border: 1px solid var(--line);
       border-radius: 50%;
       color: var(--ink);
@@ -630,25 +627,34 @@
       cursor: pointer;
       box-shadow: 0 12px 28px rgba(17, 17, 17, 0.16);
       pointer-events: auto;
+      transform: translateY(-50%);
       transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
     }
 
+    .program-arrow:first-of-type {
+      left: 0;
+    }
+
+    .program-arrow:last-of-type {
+      right: 0;
+    }
+
     .program-arrow:hover {
-      transform: translateY(-2px);
+      transform: translateY(-50%) scale(1.05);
       background: var(--yellow);
     }
 
     .program-arrow:disabled {
       opacity: 0.38;
       cursor: default;
-      transform: none;
+      transform: translateY(-50%);
       background: var(--white);
     }
 
     .program-arrow span {
       display: block;
-      margin-top: -2px;
-      font-size: 28px;
+      margin-top: -4px;
+      font-size: 44px;
       line-height: 1;
       font-weight: 700;
     }
@@ -656,7 +662,7 @@
     .program-dots {
       position: absolute;
       left: 50%;
-      bottom: 0;
+      bottom: 4px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -793,6 +799,20 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .program-carousel {
+        padding-right: 58px;
+        padding-left: 58px;
+      }
+
+      .program-arrow {
+        width: 54px;
+        height: 54px;
+      }
+
+      .program-arrow span {
+        font-size: 36px;
+      }
+
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -839,6 +859,20 @@
       .program-grid,
       .gallery-grid {
         grid-template-columns: 1fr;
+      }
+
+      .program-carousel {
+        padding-right: 44px;
+        padding-left: 44px;
+      }
+
+      .program-arrow {
+        width: 46px;
+        height: 46px;
+      }
+
+      .program-arrow span {
+        font-size: 32px;
       }
 
       .section {
