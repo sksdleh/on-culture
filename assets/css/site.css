@@ -1,4 +1,4 @@
-﻿:root {
+:root {
       --ink: #111111;
       --paper: #f8f5ef;
       --white: #ffffff;
@@ -320,12 +320,7 @@
     .section.compact {
       padding: calc(var(--header) + 48px) 0 72px;
     }
-
-    .section.compact .container {
-      width: min(1320px, calc(100% - 48px));
-    }
-
-    .section.dark {
+.section.dark {
       color: var(--white);
       background: var(--ink);
     }
@@ -396,7 +391,7 @@
 
     .about-image {
       position: relative;
-      height: 520px;
+      height: 670px;
       overflow: hidden;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -607,14 +602,14 @@
     .gallery-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
     }
 
     .gallery-item {
       position: relative;
-      flex: 1 1 calc(20% - 10px);
-      min-width: 220px;
-      height: clamp(260px, 22vw, 340px);
+      flex: 1 1 calc(20% - 8px);
+      min-width: 200px;
+      height: clamp(220px, 18vw, 280px);
       overflow: hidden;
       border-radius: var(--radius);
       background: #ddd;
@@ -721,7 +716,7 @@
       }
 
       .gallery-item {
-        flex-basis: calc(50% - 6px);
+        flex-basis: calc(50% - 5px);
       }
     }
 
