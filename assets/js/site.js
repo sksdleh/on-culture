@@ -4,10 +4,15 @@ const mobilePanel = document.querySelector("[data-mobile-panel]");
 const tabs = [...document.querySelectorAll("[data-filter]")];
 const cards = [...document.querySelectorAll("[data-category]")];
 const snapSections = [...document.querySelectorAll("main > section")];
+const heroSlides = [...document.querySelectorAll(".hero-slide")];
+const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
+const HERO_DELAY = 5200;
 
 let isSectionScrolling = false;
 let touchStartY = 0;
 let touchStartX = 0;
+let currentHeroIndex = 0;
+let heroTimer;
 
 function syncHeader() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -46,6 +51,32 @@ function moveSection(direction) {
   scrollToSection(currentIndex + direction);
 }
 
+function showHeroSlide(index) {
+  if (!heroSlides.length) return;
+
+  currentHeroIndex = (index + heroSlides.length) % heroSlides.length;
+
+  heroSlides.forEach((slide, slideIndex) => {
+    slide.classList.toggle("is-active", slideIndex === currentHeroIndex);
+  });
+
+  heroDots.forEach((dot, dotIndex) => {
+    const isActive = dotIndex === currentHeroIndex;
+    dot.classList.toggle("is-active", isActive);
+    dot.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+}
+
+function startHeroSlider() {
+  window.clearInterval(heroTimer);
+
+  if (heroSlides.length < 2) return;
+
+  heroTimer = window.setInterval(() => {
+    showHeroSlide(currentHeroIndex + 1);
+  }, HERO_DELAY);
+}
+
 function closeMenu() {
   document.body.classList.remove("is-menu-open");
   header.classList.remove("is-open");
@@ -56,6 +87,15 @@ function closeMenu() {
 
 window.addEventListener("scroll", syncHeader, { passive: true });
 syncHeader();
+showHeroSlide(0);
+startHeroSlider();
+
+heroDots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    showHeroSlide(Number(dot.dataset.heroDot));
+    startHeroSlider();
+  });
+});
 
 window.addEventListener(
   "wheel",
