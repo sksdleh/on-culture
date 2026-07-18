@@ -321,6 +321,10 @@
       padding: calc(var(--header) + 48px) 0 72px;
     }
 
+    .section.compact .container {
+      width: min(1320px, calc(100% - 48px));
+    }
+
     .section.dark {
       color: var(--white);
       background: var(--ink);
@@ -600,70 +604,11 @@
       font-weight: 800;
     }
 
-    .program-controls {
-      display: block;
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      margin-top: 0;
-      pointer-events: none;
-    }
-
-    .program-controls[hidden] {
-      display: none;
-    }
-
-    .program-arrow {
-      display: inline-grid;
-      place-items: center;
-      position: absolute;
-      top: 95px;
-      width: 64px;
-      height: 64px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      color: var(--ink);
-      background: var(--white);
-      cursor: pointer;
-      box-shadow: 0 12px 28px rgba(17, 17, 17, 0.16);
-      pointer-events: auto;
-      transform: translateY(-50%);
-      transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
-    }
-
-    .program-arrow:first-of-type {
-      left: 14px;
-    }
-
-    .program-arrow:last-of-type {
-      right: 14px;
-    }
-
-    .program-arrow:hover {
-      transform: translateY(-50%) scale(1.05);
-      background: var(--yellow);
-    }
-
-    .program-arrow:disabled {
-      opacity: 0.38;
-      cursor: default;
-      transform: translateY(-50%);
-      background: var(--white);
-    }
-
-    .program-arrow span {
-      display: block;
-      margin-top: -4px;
-      font-size: 44px;
-      line-height: 1;
-      font-weight: 700;
-    }
-
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      grid-template-rows: 250px 250px;
-      gap: 18px;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      grid-template-rows: 290px 290px;
+      gap: 12px;
     }
 
     .gallery-item {
@@ -777,15 +722,6 @@
         padding-left: 0;
       }
 
-      .program-arrow {
-        width: 54px;
-        height: 54px;
-      }
-
-      .program-arrow span {
-        font-size: 36px;
-      }
-
       .gallery-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -832,20 +768,6 @@
       .program-grid,
       .gallery-grid {
         grid-template-columns: 1fr;
-      }
-
-      .program-carousel {
-        padding-right: 0;
-        padding-left: 0;
-      }
-
-      .program-arrow {
-        width: 46px;
-        height: 46px;
-      }
-
-      .program-arrow span {
-        font-size: 32px;
       }
 
       .section {
