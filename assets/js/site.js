@@ -9,6 +9,8 @@ const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
 const programGrid = document.querySelector("[data-program-grid]");
 const galleryGrid = document.querySelector("[data-gallery-grid]");
 const galleryItems = [...document.querySelectorAll("[data-gallery-item]")];
+const instructorTabs = [...document.querySelectorAll("[data-instructor]")];
+const instructorPanels = [...document.querySelectorAll("[data-instructor-panel]")];
 const HERO_DELAY = 5200;
 const PROGRAM_DELAY = 5200;
 const GALLERY_DELAY = 5000;
@@ -183,6 +185,22 @@ function startGallerySlider() {
   }, GALLERY_DELAY);
 }
 
+
+function showInstructor(id) {
+  if (!instructorTabs.length || !instructorPanels.length) return;
+
+  instructorTabs.forEach((tab) => {
+    const isActive = tab.dataset.instructor === id;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", String(isActive));
+  });
+
+  instructorPanels.forEach((panel) => {
+    const isActive = panel.dataset.instructorPanel === id;
+    panel.hidden = !isActive;
+    panel.classList.toggle("is-active", isActive);
+  });
+}
 function closeMenu() {
   document.body.classList.remove("is-menu-open");
   header.classList.remove("is-open");
@@ -200,6 +218,12 @@ startProgramSlider();
 syncGalleryCarousel();
 startGallerySlider();
 
+
+instructorTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    showInstructor(tab.dataset.instructor);
+  });
+});
 heroDots.forEach((dot) => {
   dot.addEventListener("click", () => {
     showHeroSlide(Number(dot.dataset.heroDot));
