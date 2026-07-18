@@ -7,17 +7,15 @@ const snapSections = [...document.querySelectorAll("main > section")];
 const heroSlides = [...document.querySelectorAll(".hero-slide")];
 const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
 const programGrid = document.querySelector("[data-program-grid]");
-const programControls = document.querySelector("[data-program-controls]");
-const programPrev = document.querySelector("[data-program-prev]");
-const programNext = document.querySelector("[data-program-next]");
-const programDots = document.querySelector("[data-program-dots]");
 const HERO_DELAY = 5200;
+const PROGRAM_DELAY = 5200;
 
 let isSectionScrolling = false;
 let touchStartY = 0;
 let touchStartX = 0;
 let currentHeroIndex = 0;
 let heroTimer;
+let programTimer;
 let currentProgramFilter = "all";
 let currentProgramPage = 0;
 
@@ -97,28 +95,6 @@ function getFilteredProgramCards() {
   });
 }
 
-function renderProgramDots(totalPages) {
-  if (!programDots) return;
-
-  programDots.replaceChildren();
-
-  for (let index = 0; index < totalPages; index += 1) {
-    const dot = document.createElement("button");
-    const isActive = index === currentProgramPage;
-
-    dot.type = "button";
-    dot.classList.toggle("is-active", isActive);
-    dot.setAttribute("aria-label", `${index + 1}번째 프로그램 묶음 보기`);
-    dot.setAttribute("aria-current", isActive ? "true" : "false");
-    dot.addEventListener("click", () => {
-      currentProgramPage = index;
-      syncProgramCarousel(true);
-    });
-
-    programDots.append(dot);
-  }
-}
-
 function syncProgramCarousel(animate = false) {
   if (!programGrid || !cards.length) return;
 
@@ -138,18 +114,28 @@ function syncProgramCarousel(animate = false) {
     card.classList.toggle("is-program-visible", isVisible);
   });
 
-  if (programPrev) programPrev.disabled = currentProgramPage === 0;
-  if (programNext) programNext.disabled = currentProgramPage >= totalPages - 1;
-  if (programControls) programControls.hidden = filteredCards.length <= pageSize;
-
-  renderProgramDots(totalPages);
-
   if (animate) {
     programGrid.classList.remove("is-sliding");
     window.requestAnimationFrame(() => {
       programGrid.classList.add("is-sliding");
     });
   }
+}
+
+function startProgramSlider() {
+  window.clearInterval(programTimer);
+
+  if (!programGrid || !cards.length) return;
+
+  programTimer = window.setInterval(() => {
+    const pageSize = getProgramPageSize();
+    const totalPages = Math.ceil(getFilteredProgramCards().length / pageSize);
+
+    if (totalPages < 2) return;
+
+    currentProgramPage = (currentProgramPage + 1) % totalPages;
+    syncProgramCarousel(true);
+  }, PROGRAM_DELAY);
 }
 
 function closeMenu() {
@@ -165,6 +151,7 @@ syncHeader();
 showHeroSlide(0);
 startHeroSlider();
 syncProgramCarousel();
+startProgramSlider();
 
 heroDots.forEach((dot) => {
   dot.addEventListener("click", () => {
@@ -172,20 +159,6 @@ heroDots.forEach((dot) => {
     startHeroSlider();
   });
 });
-
-if (programPrev) {
-  programPrev.addEventListener("click", () => {
-    currentProgramPage -= 1;
-    syncProgramCarousel(true);
-  });
-}
-
-if (programNext) {
-  programNext.addEventListener("click", () => {
-    currentProgramPage += 1;
-    syncProgramCarousel(true);
-  });
-}
 
 window.addEventListener(
   "wheel",
@@ -230,6 +203,7 @@ window.addEventListener(
 window.addEventListener("resize", () => {
   currentProgramPage = 0;
   syncProgramCarousel();
+  startProgramSlider();
 });
 
 toggle.addEventListener("click", () => {
@@ -254,5 +228,6 @@ tabs.forEach((tab) => {
     });
 
     syncProgramCarousel(true);
+    startProgramSlider();
   });
 });
