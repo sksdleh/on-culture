@@ -37,8 +37,7 @@
   <main>
     <section class="hero" id="home">
       <div class="hero-slider" aria-hidden="true">
-        <div class="hero-slide"><img src="/assets/img/visual-01.jpg" alt=""></div>
-        <div class="hero-slide is-brightened"><img src="/assets/img/visual-03.jpg" alt=""></div>
+        <div class="hero-slide is-active"><img src="/assets/img/visual-01.jpg" alt=""></div>
         <div class="hero-slide"><img src="/assets/img/visual-05.jpg" alt=""></div>
       </div>
       <div class="hero-inner">
@@ -48,9 +47,8 @@
         -->
       </div>
       <ol class="hero-pagination" aria-label="비주얼 이미지 목록">
-        <li><span class="sr-only">1번째 비주얼</span></li>
-        <li><span class="sr-only">2번째 비주얼</span></li>
-        <li><span class="sr-only">3번째 비주얼</span></li>
+        <li><button class="is-active" type="button" aria-label="1번째 비주얼 보기" data-hero-dot="0"></button></li>
+        <li><button type="button" aria-label="2번째 비주얼 보기" data-hero-dot="1"></button></li>
       </ol>
     </section>
 
