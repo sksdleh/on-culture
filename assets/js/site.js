@@ -122,6 +122,8 @@ function renderProgramDots(totalPages) {
 function syncProgramCarousel(animate = false) {
   if (!programGrid || !cards.length) return;
 
+  programGrid.classList.add("is-ready");
+
   const pageSize = getProgramPageSize();
   const filteredCards = getFilteredProgramCards();
   const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
