@@ -24,7 +24,7 @@
       position: fixed;
       inset: 0;
       z-index: -2;
-      background-image: url("/assets/img/visual-01.jpg");
+      background-image: url("../img/visual-01.jpg");
       background-position: center;
       background-size: cover;
       transform: scale(1.02);
