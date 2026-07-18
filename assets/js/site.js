@@ -133,7 +133,9 @@ function syncProgramCarousel(animate = false) {
   currentProgramPage = Math.min(currentProgramPage, totalPages - 1);
 
   cards.forEach((card) => {
-    card.hidden = !visibleCards.includes(card);
+    const isVisible = visibleCards.includes(card);
+    card.hidden = !isVisible;
+    card.classList.toggle("is-program-visible", isVisible);
   });
 
   if (programPrev) programPrev.disabled = currentProgramPage === 0;
