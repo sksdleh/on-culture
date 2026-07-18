@@ -3,12 +3,15 @@ const toggle = document.querySelector("[data-menu-toggle]");
 const mobilePanel = document.querySelector("[data-mobile-panel]");
 const tabs = [...document.querySelectorAll("[data-filter]")];
 const cards = [...document.querySelectorAll("[data-category]")];
-const snapSections = [...document.querySelectorAll("main > section")];
+const snapSections = [...document.querySelectorAll("main > section, .footer")];
 const heroSlides = [...document.querySelectorAll(".hero-slide")];
 const heroDots = [...document.querySelectorAll("[data-hero-dot]")];
 const programGrid = document.querySelector("[data-program-grid]");
+const galleryGrid = document.querySelector("[data-gallery-grid]");
+const galleryItems = [...document.querySelectorAll("[data-gallery-item]")];
 const HERO_DELAY = 5200;
 const PROGRAM_DELAY = 5200;
+const GALLERY_DELAY = 5000;
 
 let isSectionScrolling = false;
 let touchStartY = 0;
@@ -16,8 +19,10 @@ let touchStartX = 0;
 let currentHeroIndex = 0;
 let heroTimer;
 let programTimer;
+let galleryTimer;
 let currentProgramFilter = "all";
 let currentProgramPage = 0;
+let currentGalleryPage = 0;
 
 function syncHeader() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -138,6 +143,46 @@ function startProgramSlider() {
   }, PROGRAM_DELAY);
 }
 
+function syncGalleryCarousel(animate = false) {
+  if (!galleryGrid || !galleryItems.length) return;
+
+  const pageSize = getProgramPageSize();
+  const totalPages = Math.max(1, Math.ceil(galleryItems.length / pageSize));
+  currentGalleryPage = Math.min(currentGalleryPage, totalPages - 1);
+
+  const startIndex = currentGalleryPage * pageSize;
+  const visibleItems = galleryItems.slice(startIndex, startIndex + pageSize);
+
+  galleryItems.forEach((item) => {
+    const isVisible = visibleItems.includes(item);
+    item.hidden = !isVisible;
+    item.classList.toggle("is-gallery-visible", isVisible);
+  });
+
+  if (animate) {
+    galleryGrid.classList.remove("is-sliding");
+    window.requestAnimationFrame(() => {
+      galleryGrid.classList.add("is-sliding");
+    });
+  }
+}
+
+function startGallerySlider() {
+  window.clearInterval(galleryTimer);
+
+  if (!galleryGrid || !galleryItems.length) return;
+
+  galleryTimer = window.setInterval(() => {
+    const pageSize = getProgramPageSize();
+    const totalPages = Math.ceil(galleryItems.length / pageSize);
+
+    if (totalPages < 2) return;
+
+    currentGalleryPage = (currentGalleryPage + 1) % totalPages;
+    syncGalleryCarousel(true);
+  }, GALLERY_DELAY);
+}
+
 function closeMenu() {
   document.body.classList.remove("is-menu-open");
   header.classList.remove("is-open");
@@ -152,6 +197,8 @@ showHeroSlide(0);
 startHeroSlider();
 syncProgramCarousel();
 startProgramSlider();
+syncGalleryCarousel();
+startGallerySlider();
 
 heroDots.forEach((dot) => {
   dot.addEventListener("click", () => {
@@ -202,8 +249,11 @@ window.addEventListener(
 
 window.addEventListener("resize", () => {
   currentProgramPage = 0;
+  currentGalleryPage = 0;
   syncProgramCarousel();
   startProgramSlider();
+  syncGalleryCarousel();
+  startGallerySlider();
 });
 
 toggle.addEventListener("click", () => {
