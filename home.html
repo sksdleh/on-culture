@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>이음교육연구센터 | 일상 가까이의 문화와 배움</title>
   <meta name="description" content="안양에서 만나는 인문학, 심리, 건강, 원데이 체험 프로그램. 이음교육연구센터.">
-  <link rel="stylesheet" href="assets/css/site.css?v=20260718-18">
+  <link rel="stylesheet" href="assets/css/site.css?v=20260718-19">
 </head>
 <body>
   <header class="site-header" data-header>
@@ -22,6 +22,8 @@
         <a href="#gallery">수강안내</a>
       </nav>
 
+            <div class="nav-actions"><a class="btn nav-apply" href="index.html">수강 접수 안내</a></div>
+
       <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" data-menu-toggle>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
       </button>
@@ -34,6 +36,7 @@
     <a href="#instructors">강사안내</a>
     <a href="#programs">이음클래스</a>
     <a href="#gallery">수강안내</a>
+    <a href="index.html">수강 접수 안내</a>
   </nav>
 
   <main>
@@ -99,7 +102,7 @@
 
         <div class="instructor-shell">
           <div class="instructor-list" role="tablist" aria-label="강사진 목록">
-            <button class="instructor-tab is-active" type="button" role="tab" aria-selected="true" data-instructor="yang">
+            <button class="instructor-tab" type="button" role="tab" aria-selected="false" data-instructor="yang">
               <span class="instructor-avatar"><img src="assets/img/people/instructor-yang-sihyun.png" alt="양시현"></span>
               <strong>양시현</strong>
             </button>
@@ -121,8 +124,8 @@
             </button>
           </div>
 
-          <div class="instructor-detail">
-            <article class="instructor-panel is-active" data-instructor-panel="yang">
+          <div class="instructor-detail" data-instructor-detail hidden>
+            <article class="instructor-panel" data-instructor-panel="yang" hidden>
               <div class="instructor-panel-head">
                 <img src="assets/img/people/instructor-yang-sihyun.png" alt="양시현">
                 <div>
@@ -303,23 +306,18 @@
         <div class="program-grid sketch-grid" data-gallery-grid>
           <article class="program-card sketch-card is-program-visible is-gallery-visible" data-gallery-item>
             <div class="program-media"><img src="assets/img/seminar-class.jpg" alt="수강생들이 강의를 듣는 실제 세미나 현장"></div>
-            <div class="program-body"><h3>뇌를 깨우는 학습 세미나</h3></div>
           </article>
           <article class="program-card sketch-card is-program-visible is-gallery-visible" data-gallery-item>
             <div class="program-media"><img src="assets/img/seminar-wisdom.jpg" alt="지혜 인문학 강의가 진행되는 현장"></div>
-            <div class="program-body"><h3>지혜를 나누는 인문학</h3></div>
           </article>
           <article class="program-card sketch-card is-program-visible is-gallery-visible" data-gallery-item>
             <div class="program-media"><img src="assets/img/seminar-face.jpg" alt="관상 세미나를 듣는 수강생들"></div>
-            <div class="program-body"><h3>관상으로 만나는 관계</h3></div>
           </article>
           <article class="program-card sketch-card is-program-visible" data-gallery-item hidden>
             <div class="program-media"><img src="assets/img/seminar-health.jpg" alt="건강 세미나 강의 현장"></div>
-            <div class="program-body"><h3>몸의 신호를 살피는 건강 시간</h3></div>
           </article>
           <article class="program-card sketch-card is-program-visible" data-gallery-item hidden>
             <div class="program-media"><img src="assets/img/seminar-community.jpg" alt="함께 듣고 나누는 소규모 클래스 현장"></div>
-            <div class="program-body"><h3>함께 듣고 나누는 클래스</h3></div>
           </article>
         </div>
       </div>
@@ -329,9 +327,8 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>© 이음교육연구센터. All rights reserved.</div>
-      <div class="source-links">실제 프로그램 사진으로 구성했습니다.</div>
     </div>
   </footer>
-  <script src="assets/js/site.js?v=20260718-18"></script>
+  <script src="assets/js/site.js?v=20260718-19"></script>
 </body>
 </html>
