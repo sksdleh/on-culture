@@ -11,6 +11,7 @@ const galleryGrid = document.querySelector("[data-gallery-grid]");
 const galleryItems = [...document.querySelectorAll("[data-gallery-item]")];
 const instructorTabs = [...document.querySelectorAll("[data-instructor]")];
 const instructorPanels = [...document.querySelectorAll("[data-instructor-panel]")];
+const instructorDetail = document.querySelector("[data-instructor-detail]");
 const HERO_DELAY = 5200;
 const PROGRAM_DELAY = 5200;
 const GALLERY_DELAY = 5000;
@@ -188,6 +189,11 @@ function startGallerySlider() {
 
 function showInstructor(id) {
   if (!instructorTabs.length || !instructorPanels.length) return;
+
+  if (instructorDetail) {
+    instructorDetail.hidden = false;
+    instructorDetail.classList.add("is-open");
+  }
 
   instructorTabs.forEach((tab) => {
     const isActive = tab.dataset.instructor === id;
