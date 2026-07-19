@@ -487,14 +487,17 @@
 
     .instructor-shell {
       display: grid;
-      gap: 28px;
+      gap: 0;
       align-items: start;
     }
 
     .instructor-list {
+      position: relative;
+      z-index: 2;
       display: grid;
       grid-template-columns: repeat(5, minmax(120px, 1fr));
       gap: 14px;
+      align-items: end;
     }
 
     .instructor-tab {
@@ -518,12 +521,24 @@
     }
 
     .instructor-tab.is-active {
+      position: relative;
+      z-index: 3;
       transform: none;
       border-color: var(--ink);
       border-bottom-color: var(--white);
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
       box-shadow: 0 18px 34px rgba(17, 17, 17, 0.08);
+    }
+
+    .instructor-tab.is-active::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      bottom: -2px;
+      left: -1px;
+      height: 3px;
+      background: var(--white);
     }
 
     .instructor-avatar {
@@ -549,10 +564,16 @@
     }
     .instructor-detail {
       min-height: 390px;
+      margin-top: -1px;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-top-color: var(--ink);
+      border-radius: 0 0 var(--radius) var(--radius);
       background: var(--white);
       box-shadow: var(--shadow);
+    }
+
+    .instructor-detail[hidden] {
+      display: none;
     }
 
     .instructor-panel {
